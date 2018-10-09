@@ -10,8 +10,8 @@ var io = require("socket.io")(server);
 
 var activeUsers = {};
 
-// mongoose.connect("mongodb://localhost:27017/tododb6")
-mongoose.connect("mongodb://mongodb:27017/tododb")
+mongoose.connect("mongodb://localhost:27017/tododb6")
+// mongoose.connect("mongodb://mongodb:27017/tododb")
     .then(() => {
         console.log("Connected to MOngoDB");
     }, error => {
