@@ -80,7 +80,11 @@ Todo app with Node.js, Express, Vue.js, MongoDB, Socket.io, Docker
         server localhost:6789;
    }
   
-5)Check the UI in browser at http://localhost:8080/
+5)Restart your Nginx
+>sudo nginx -s stop && sudo nginx (if MAC)
+>sudo service nginx restart (if Linux)
+
+6)Check the UI in browser at http://localhost:8080/
 >8080 is default port for nginx, if you wantt to change the port or if your nginx is running in any other port please check the ui in the corresponding port.
 
 
