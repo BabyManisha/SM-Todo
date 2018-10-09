@@ -6,7 +6,7 @@ Todo app with Node.js, Express, Vue.js, MongoDB, Socket.io, Docker
 > https://nodejs.org/en
 
 2)MongoDB
-> https://docs.mongodb.com/manual/administration/install-enterprise
+> https://docs.mongodb.com/manual/administration/install-community/
 
 3)Docker (Need only if want to try the Dockerized todo app)
 > https://docs.docker.com/compose/install/#install-compose
