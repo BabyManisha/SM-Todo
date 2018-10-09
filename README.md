@@ -57,7 +57,8 @@ Todo app with Node.js, Express, Vue.js, MongoDB, Socket.io, Docker
 >vi /etc/nginx/nginx.conf (if Linux)
 
 3)Copy the below content in the nginx.conf file under server section
->location / {
+>
+      location / {
             # root   html;
             # index  index.html index.htm;
 
@@ -71,14 +72,17 @@ Todo app with Node.js, Express, Vue.js, MongoDB, Socket.io, Docker
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "upgrade";
         }
+        
 
 4)Copy the below content in the nginx.conf file after server section
->upstream nodes {
+> 
+    upstream nodes {
         # enable sticky session based on IP
         ip_hash;
 
         server localhost:6789;
    }
+   
   
 5)Restart your Nginx
 >sudo nginx -s stop && sudo nginx (if MAC)
