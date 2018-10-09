@@ -49,7 +49,7 @@ Todo app with Node.js, Express, Vue.js, MongoDB, Socket.io, Docker
 6)Check the UI in browser at http://localhost:6789/
 
 
-# Steps to try with Nginx (with out without docker)
+# Steps to try with Nginx (with or without docker)
 1)Follow the above steps based on your requirement (with or without docker)
 
 2)Open your nginx.conf file
