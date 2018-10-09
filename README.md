@@ -2,8 +2,10 @@
 todo app with node, express, vue, mongodb, socket.io
 
 # Pre-Requisites 
-1)Node (https://nodejs.org/en/)
-2)MongoDB (https://docs.mongodb.com/manual/administration/install-enterprise/)
+1)Node
+>(https://nodejs.org/en/)
+2)MongoDB
+>(https://docs.mongodb.com/manual/administration/install-enterprise/)
 
 # Steps to install it in your local
 1)clone the repo
