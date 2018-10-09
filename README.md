@@ -1,12 +1,11 @@
 # SM-Todo
 todo app with node, express, vue, mongodb, socket.io
 
-Pre-Requisites 
-##############
+# Pre-Requisites 
 1)Node (https://nodejs.org/en/)
 2)MongoDB (https://docs.mongodb.com/manual/administration/install-enterprise/)
 
-############
+# Steps to install it in your local
 1)clone the repo
 >git clone https://github.com/BabyManisha/SM-Todo.git
 
@@ -21,6 +20,6 @@ Pre-Requisites
 
 5)check the UI in browser at http://localhost:6789/
 
-#############
-Keep Visiting!!
-Thank you.. :) :)
+
+# Keep Visiting!!
+# Thank you.. :) :)
