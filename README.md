@@ -82,7 +82,7 @@ Todo app with Node.js, Express, Vue.js, MongoDB, Socket.io, Docker
 
         server localhost:6789;
    }
-   
+ 
   
 5)Restart your Nginx
 >sudo nginx -s stop && sudo nginx (if MAC)
