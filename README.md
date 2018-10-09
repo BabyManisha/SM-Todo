@@ -81,7 +81,7 @@ Todo app with Node.js, Express, Vue.js, MongoDB, Socket.io, Docker
         ip_hash;
 
         server localhost:6789;
-   }
+     }
  
   
 5)Restart your Nginx
