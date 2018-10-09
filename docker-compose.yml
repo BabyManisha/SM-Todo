@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo
+    # volumes:
+    #   - ./database:/data/db
+    ports:
+        - '27016:27017'
+
+  todo:
+    image: todo
+    build: .
+    depends_on:
+      - mongodb
+    ports:
+      - "6789:6789"
+    
