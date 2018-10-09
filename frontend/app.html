@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO APP</title>
+        <link rel="stylesheet" href="app.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Welcome to TODO APP</h1>
+        <div id="app">
+            <h1>{{msg}}</h1>
+            <div v-if="!showTodos">
+                <h2>Enter your UserName::</h2>
+                <input type="text" v-model="userName" />
+                <button @click="getTodos">Login</button>
+            </div>
+            <div v-else>
+                <h2>{{userName}} - Todos</h2>
+                <ul>
+                    <li v-for="todo in todos">
+                       <b>{{todo.todoItem}}</b> ==> {{todo.createdAt}}
+                    </li>
+                </ul>
+
+                <input type="text" v-model="todoItem" />
+                <button @click="addTodo">Add</button>
+            </div>
+
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+    <script src="app.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</html>

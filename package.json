@@ -1,0 +1,17 @@
+{
+    "name": "todoapp",
+    "version": "1.0.0",
+    "description": "My First node app - TODO",
+    "scripts": {
+        "develop": "nodemon app.js"
+    },
+    "dependencies": {
+        "@vue/cli": "^3.0.4",
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.4",
+        "express": "^4.16.3",
+        "mongoose": "^5.3.2",
+        "nodemon": "^1.18.4",
+        "socket.io": "^2.1.1"
+    }
+}
