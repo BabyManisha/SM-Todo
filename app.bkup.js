@@ -51,14 +51,12 @@ pgclient.connect((err) => {
 
 var uName  = "";
 
-
 app.use('/', (req, res, next)=> {
     console.log(req.method);
     console.log(req.path);
     console.log(req.headers['x-access-token']);
     console.log(req.cookies);
     var session_key = req.cookies['sessionid'];
-    var access_token = req.headers['x-access-token'];
 
     pgclient.query('SELECT * FROM django_session where session_key = $1',[session_key] , (err, res) => {
         if(err){
@@ -67,23 +65,25 @@ app.use('/', (req, res, next)=> {
             console.log("PGDB response is:", res);
             if(res.rowCount == 1){
                 let sessionDatab64 = res.rows[0]['session_data'];
-                console.log(base64.decode(sessionDatab64));
+                console.log("sessionDatab64:==>");
+                console.log(sessionDatab64);
                 let sessionData = base64.decode(sessionDatab64);
+                console.log("SessionDAta is=====>");
+                console.log(sessionData);
                 let sIndex = sessionData.indexOf(':');
+                console.log(sIndex);
+                console.log("Tenant name is:");
                 let sData = JSON.parse(sessionData.slice(sIndex+1));
-                let appsDetails = sData['apps'][access_token];
-                req['userName'] = sData['username'];
-                req['appDetails'] = appsDetails;
-                // uName = sData['TENANT'];
-                // console.log(uName);
+                uName = sData['TENANT'];
+                console.log(uName);
+                console.log("SessionData is=====>");
                 next();
             }else{
                 console.log("invalid session");
-                res.JSON("msg", "Invalid Session");
             }
         }
     })
-});
+})
 
 app.use("/apps/todo/user", userAuth);
 app.use("/apps/todo/todo", todoRoutes);

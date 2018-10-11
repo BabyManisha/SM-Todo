@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
   mongodb:
@@ -6,13 +6,28 @@ services:
     # volumes:
     #   - ./database:/data/db
     ports:
-        - '27016:27017'
+      - '27016:27017'
+    networks: 
+      - portal
 
   todo:
     image: todo
     build: .
+    # volumes:
+    #   - .:/usr/src/app
     depends_on:
       - mongodb
     ports:
       - "6789:6789"
+    networks: 
+      - portal
+    external_links:
+      # Links to shared containers
+      - shared_db_1:sessiondb
+
+
+networks: 
+  portal:
+    external: true
+    name: portal 
     

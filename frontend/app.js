@@ -11,9 +11,30 @@ $(document).ready(function(){
         showTodos: false
     },
     created() {
-      
+      let searchObj = new URLSearchParams(window.location.search);
+      sessionStorage.setItem("access_token", searchObj.get('access_token'));
+      this.getUserDetails();
     },
     methods: {
+      getUserDetails(){
+        var self = this;
+        $.ajax({
+          url: "/apps/todo/user/getUserDetails",
+          type: 'GET',
+          headers: {
+            'X-Access-Token': sessionStorage.getItem('access_token'),
+          },
+          success: function (data) {
+            console.log("Data: " + data);
+            self.userName = data['schema_name'];
+            self.ioinit();
+            self.getTodos();
+          },
+          error: function (error) {
+            console.log("Error: " + error );
+          }
+        });
+      },
       ioinit(){
         // this.getTodos();
         var self = this;
@@ -24,6 +45,7 @@ $(document).ready(function(){
         // });
 
         var socket = io('/',{
+          //path: 'apps/todo',
           transportOptions: {
             polling: {
               extraHeaders: {
@@ -48,21 +70,40 @@ $(document).ready(function(){
         });
       },
       getTodos() {
-        this.ioinit();
-        var self = this, url = self.userName ? "/todo/list/?userName="+self.userName : "/";
-        $.get(url, (data, status) => {
-          console.log("Data: " + data + "\nStatus: " + status);
-          self.todos = data;
-          self.showTodos = true;
+        var self = this;
+        $.ajax({
+          url: self.userName ? "/apps/todo/todo/list/?userName="+self.userName : "/",
+          type: 'GET',
+          headers: {
+            'X-Access-Token': sessionStorage.getItem('access_token'),
+          },
+          success: function (data) {
+            console.log("Data: " + data);
+            self.todos = data;
+            self.showTodos = true;
+          },
+          error: function (error) {
+            console.log("Error: " + error );
+          }
         });
       },
       addTodo() {
         var self = this;
-        $.post("/todo/create", {'todoItem': self.todoItem, 'userName': self.userName}, (data, status) => {
-          console.log("Data: " + data + "\nStatus: " + status);
-          // self.todos = self.todos.concat({'todoItem': self.todoItem, 'userName': self.userName, 'createdAt': new Date()});
-          self.todoItem = '';
-          // self.getTodos();
+        $.ajax({
+          url: "/apps/todo/todo/create",
+          type: 'POST',
+          data: {'todoItem': self.todoItem, 'userName': self.userName},
+          headers: {
+            'X-Access-Token': sessionStorage.getItem('access_token'),
+          },
+          success: function (result) {
+            console.log(result);
+            self.todoItem = '';
+            //self.getTodos();
+          },
+          error: function (error) {
+            console.log("Error: " + error );
+          }
         });
       }
     }
