@@ -1,29 +1,21 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var todoRoutes = require("./backend/todoRoutes");
-var Todo = require("./models/todo");
 var cors = require("cors");
+var todoRoutes = require("./backend/todoRoutes");
+
+// MonogDB
+var mongoose = require("mongoose");
+var Todo = require("./models/todo");
+
+// Postgres
+var { Client } = require("pg");
+
+// WebSockets
 var server = require('http').createServer(app);
 var io = require("socket.io")(server);
 
 var activeUsers = {};
-
-// mongoose.connect("mongodb://localhost:27017/tododb6")
-mongoose.connect("mongodb://mongodb:27017/tododb")
-    .then(() => {
-        console.log("Connected to MOngoDB");
-    }, error => {
-        console.log("There is an error while commecting to the MongoDB ", error);
-    });
-
-
-app.use('/', (req, res, next)=> {
-    console.log(req.method);
-    console.log(req.path);
-    next();
-})
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
@@ -31,10 +23,69 @@ app.use(cors());
 app.use(express.static(__dirname + '/node_modules'));
 app.use(express.static(__dirname + '/frontend'));
 
-
-
 app.get('/', (req, res) => {
     res.sendFile(__dirname+'/frontend/app.html');
+})
+
+
+// MonogDB Connection
+mongoose.connect("mongodb://localhost:27017/tododb6")
+// mongoose.connect("mongodb://mongodb:27017/tododb")
+    .then(() => {
+        console.log("Connected to MOngoDB");
+    }, error => {
+        console.log("There is an error while commecting to the MongoDB ", error);
+    });
+
+// PostgresDB Connection
+
+// const pgClient = new postgresClient()
+// var pool = new Pool();
+// pool.connect((err, client, release) => {
+//     // assert(client.release === release)
+//     if(client){
+//         console.log('Pool created');
+//     }else if (err){
+//         console.log('error while connecting to pgdb', err);
+//     }
+// })
+
+// pool.end().then(() => {
+//     console.log('Pool has Ended');
+// });
+
+const pgclient = new Client();
+
+// const client = new Client({
+//     host: 'my.database-server.com',
+//     port: 5334,
+//     user: 'database-user',
+//     password: 'secretpassword!!',
+//   })
+
+pgclient.connect((err) => {
+    if (err) {
+      console.error('connection error', err.stack)
+    } else {
+      console.log('connected to PostgressDB')
+
+    }
+})
+
+// MiddileWares..
+app.use('/', (req, res, next)=> {
+    console.log(req.method);
+    console.log(req.path);
+    pgclient.query('SELECT NOW()', (err, res) => {
+        if (err){
+            console.log("error in the quey..", err);
+        }else{
+            console.log("connected PGDB response::",res);
+        }
+        pgclient.end()
+    })
+
+    next();
 })
 
 app.use("/todo", todoRoutes);
@@ -83,7 +134,7 @@ setInterval((data)=> {
                 for(let ai in activeUsers){
                     for(let aui in activeUsers[ai]){
                         let client = activeUsers[ai][aui];
-                        for(let td in todos){``
+                        for(let td in todos){
                             if(todos[td]['userName'] == ai){
                                 client.emit('dataUpdated', todos[td]);
                             }
