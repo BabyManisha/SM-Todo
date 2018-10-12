@@ -45,7 +45,7 @@ $(document).ready(function(){
         // });
 
         var socket = io('/',{
-          //path: 'apps/todo',
+          path: '/apps/todo/socket.io',
           transportOptions: {
             polling: {
               extraHeaders: {

@@ -9,7 +9,10 @@ var userAuth = require("./backend/userAuth");
 var Todo = require("./models/todo");
 var cors = require("cors");
 var server = require('http').createServer(app);
-var io = require("socket.io")(server);
+var io = require("socket.io")({
+    path: '/apps/todo/socket.io'
+});
+io.attach(server);
 
 var { Client } = require("pg");
 
@@ -32,7 +35,7 @@ app.get('/apps/todo/index', (req, res) => {
 })
 
 app.use('/apps/todo/static/public', express.static(__dirname + '/frontend'));
-app.use('/apps/todo/static', express.static(__dirname + '/node_modules'));
+// app.use('/apps/todo/static', express.static(__dirname + '/node_modules'));
 
 var pgclient = new Client({
     host: 'sessiondb',
