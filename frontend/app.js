@@ -23,7 +23,8 @@ $(document).ready(function(){
         //   }
         // });
 
-        var socket = io('/',{
+        var socket = io({
+          path: '/apps/todo/socket.io',
           transportOptions: {
             polling: {
               extraHeaders: {

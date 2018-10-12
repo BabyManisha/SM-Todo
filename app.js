@@ -6,7 +6,11 @@ var todoRoutes = require("./backend/todoRoutes");
 var Todo = require("./models/todo");
 var cors = require("cors");
 var server = require('http').createServer(app);
-var io = require("socket.io")(server);
+var io = require("socket.io")({
+    path: '/apps/todo/socket.io'
+});
+
+io.attach(server);
 
 var activeUsers = {};
 
@@ -28,7 +32,7 @@ app.use('/', (req, res, next)=> {
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
-app.use(express.static(__dirname + '/node_modules'));
+// app.use(express.static(__dirname + '/node_modules'));
 app.use(express.static(__dirname + '/frontend'));
 
 
