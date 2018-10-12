@@ -6,14 +6,14 @@
         "develop": "nodemon app.js"
     },
     "dependencies": {
+        "base-64": "0.1.0",
         "body-parser": "^1.18.3",
-        "cookie-parser": "1.4.3",
+        "cookie-parser": "^1.4.3",
         "cors": "^2.8.4",
         "express": "^4.16.3",
         "mongoose": "^5.3.2",
         "nodemon": "^1.18.4",
-        "socket.io": "^2.1.1",
         "pg": "7.5.0",
-        "base-64": "0.1.0"
+        "socket.io": "^2.1.1"
     }
 }

@@ -14,7 +14,10 @@ services:
     image: todo
     build: .
     # volumes:
-    #   - .:/usr/src/app
+    #   - ./backend:/usr/src/app/backend
+    #   - ./frontend:/usr/src/app/frontend
+    #   - ./models:/usr/src/app/models
+    #   - ./app.js:/usr/src/app/
     depends_on:
       - mongodb
     ports:
