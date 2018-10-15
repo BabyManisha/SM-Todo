@@ -60,7 +60,7 @@ app.use('/', (req, res, next)=> {
     console.log(req.path);
     console.log(req.headers['x-access-token']);
     console.log(req.cookies);
-    var session_key = req.cookies['sessionid'];
+    var session_key = req.cookies['sessionid'] || req.cookies['JSESSIONID'];
     var access_token = req.headers['x-access-token'];
 
     pgclient.query('SELECT * FROM django_session where session_key = $1',[session_key] , (err, res) => {
@@ -122,7 +122,7 @@ io.on('connection', (client) => {
 var lastChecked = new Date();
 
 setInterval((data)=> {
-    console.log("every 2secs......");
+    console.log("every 5secs......");
     console.log("active Users::::");
     console.log(Object.keys(activeUsers));
 
@@ -136,7 +136,7 @@ setInterval((data)=> {
                 for(let ai in activeUsers){
                     for(let aui in activeUsers[ai]){
                         let client = activeUsers[ai][aui];
-                        for(let td in todos){``
+                        for(let td in todos){
                             if(todos[td]['userName'] == ai){
                                 client.emit('dataUpdated', todos[td]);
                             }

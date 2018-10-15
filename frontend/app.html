@@ -16,6 +16,8 @@
             </div>
             <div v-else>
                 <h2>{{userName}} - Todos</h2>
+                <a href='http://localhost:8081/OsintIDATest/logout'>OSint-Logout</a><br>
+                <a href='http://localhost:8889/logout'>UIGateway-Logout</a><br>
                 <ul>
                     <li v-for="todo in todos">
                        <b>{{todo.todoItem}}</b> ==> {{todo.createdAt}}
